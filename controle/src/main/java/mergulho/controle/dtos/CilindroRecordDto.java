@@ -1,8 +1,7 @@
 package mergulho.controle.dtos;
 
-import jakarta.validation.constraints.NotBlank;
 
-public record CilindroRecordDto(@NotBlank String dataFabricacao,@NotBlank String serialNum,@NotBlank String tipoCilindro) {
+public record CilindroRecordDto(String dataFabricacao, String serialNum, String tipoCilindro) {
 
 
 

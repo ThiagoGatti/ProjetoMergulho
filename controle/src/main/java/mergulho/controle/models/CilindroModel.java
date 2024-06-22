@@ -1,29 +1,35 @@
 package mergulho.controle.models;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.UUID;
 
 @Entity
 @Table(name = "TB_CILINDRO")
+@NoArgsConstructor
+@AllArgsConstructor
 public class CilindroModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID idCilindro;
+    private Long idCilindro;
     private String dataFabricacao;
     private String serialNum;
     private String tipoCilindro;
 
 
-    public UUID getIdCilindro() {
+
+
+    public Long getIdCilindro() {
         return idCilindro;
     }
 
-    public void setIdCilindro(UUID idCilindro) {
+    public void setIdCilindro(Long idCilindro) {
         this.idCilindro = idCilindro;
     }
 
