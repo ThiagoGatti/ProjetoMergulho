@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Adicionar Novo Cilindro</title>
+</head>
+
+<body>
+<h1>Adicionar Novo Cilindro</h1>
+<form th:action="@{/cilindros}" th:object="${cilindro}" method="post">
+    <div>
+        <label>Data de Fabricação:</label>
+        <input type="text" th:field="*{dataFabricacao}" />
+    </div>
+    <div>
+        <label>Serial:</label>
+        <input type="text" th:field="*{serialNum}" />
+    </div>
+    <div>
+        <label>Tipo:</label>
+        <input type="text" th:field="*{tipoCilindro}" />
+    </div>
+    <div>
+        <button type="submit">Salvar</button>
+    </div>
+</form>
+</body>
+
+</html>
