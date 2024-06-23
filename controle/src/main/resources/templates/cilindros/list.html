@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Lista de Cilindros</title>
+</head>
+<body>
+<h1>Lista de Cilindros</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Data de Fabricação</th>
+        <th>Serial</th>
+        <th>Tipo</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="cilindro : ${cilindros}">
+        <td th:text="${cilindro.idCilindro}"></td>
+        <td th:text="${cilindro.dataFabricacao}"></td>
+        <td th:text="${cilindro.serialNum}"></td>
+        <td th:text="${cilindro.tipoCilindro}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/cilindros/new}">Adicionar Novo Cilindro</a>
+
+</body>
+</html>
