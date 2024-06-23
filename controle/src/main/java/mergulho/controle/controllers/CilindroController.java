@@ -1,5 +1,7 @@
 package mergulho.controle.controllers;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import mergulho.controle.models.CilindroModel;
 import mergulho.controle.repositories.CilindroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,26 +13,24 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class CilindroController {
 
     @Autowired
     private CilindroRepository cilindroRepository;
 
     @GetMapping("/cilindros")
-    public ResponseEntity<List<CilindroModel>> getAllCilindro() {
-
-        try {
-            List<CilindroModel> cilindroList = new ArrayList<>();
-            cilindroRepository.findAll().forEach(cilindroList::add);
-            if (cilindroList.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-            return new ResponseEntity<>(cilindroList, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public String listCilindros(Model model) {
+        model.addAttribute("cilindros", cilindroRepository.findAll());
+        return "cilindros/list";
     }
+
+    @GetMapping("/cilindros/new")
+    public String newCilindroForm(Model model) {
+        model.addAttribute("cilindro", new CilindroModel());
+        return "cilindros/form";
+    }
+
     @GetMapping("/getCilindroID/{id}")
     public ResponseEntity<CilindroModel> getCilindroID(@PathVariable Long id) {
             Optional<CilindroModel> cilindroData = cilindroRepository.findById(id);
@@ -39,13 +39,10 @@ public class CilindroController {
                 return new ResponseEntity<>(cilindroData.get(), HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
     }
     @PostMapping("/addCilindro")
     public ResponseEntity<CilindroModel> addCilindro(@RequestBody CilindroModel cilindro) {
         CilindroModel cilindroObj = cilindroRepository.save(cilindro);
-
-
         return new ResponseEntity<>(cilindroObj, HttpStatus.OK);
 
     }
