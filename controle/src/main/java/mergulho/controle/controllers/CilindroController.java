@@ -17,7 +17,7 @@ public class CilindroController {
     @Autowired
     private CilindroRepository cilindroRepository;
 
-    @GetMapping("/getAllCilindro")
+    @GetMapping("/cilindros")
     public ResponseEntity<List<CilindroModel>> getAllCilindro() {
 
         try {
@@ -30,7 +30,6 @@ public class CilindroController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
     @GetMapping("/getCilindroID/{id}")
     public ResponseEntity<CilindroModel> getCilindroID(@PathVariable Long id) {
