@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,11 +10,11 @@
         
 <h1>BEM VINDO AO CONTROLE NOVOS MARES</h1>
 
-<a href="#">
+<a th:href="@{/cilindros}">
     <button>Lista</button>
 </a>
 
-<a href="#">
+<a th:href="@{/cilindros/new}">
     <button>Form</button>
 </a>
 
