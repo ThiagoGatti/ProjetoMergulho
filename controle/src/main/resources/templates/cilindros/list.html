@@ -2,9 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Lista de Cilindros</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+
 </head>
 <body>
 <h1>Lista de Cilindros</h1>
+
+<div class = "tabela">
 <table>
     <thead>
     <tr>
@@ -23,6 +29,8 @@
     </tr>
     </tbody>
 </table>
+
+</div>
 
 <a th:href="@{/cilindros/new}">Adicionar Novo Cilindro</a>
 
