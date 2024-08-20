@@ -2,6 +2,7 @@ package mergulho.controle.controllers;
 
 import jakarta.validation.Valid;
 import mergulho.controle.dtos.CilindroRecordDto;
+import mergulho.controle.service.MailService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +23,8 @@ public class CilindroController {
 
     @Autowired
     private CilindroRepository cilindroRepository;
+    @Autowired
+    private MailService mailService;
 
     @GetMapping("/cilindros")
     public String listCilindros(Model model) {
@@ -43,6 +46,7 @@ public class CilindroController {
         CilindroModel cilindroModel = new CilindroModel();
         BeanUtils.copyProperties(cilindroRecordDto, cilindroModel);
         cilindroRepository.save(cilindroModel);
+
         return "redirect:/cilindros";
     }
     @DeleteMapping("/deleteCilindroID/{id}")

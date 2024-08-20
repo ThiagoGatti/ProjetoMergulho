@@ -20,13 +20,10 @@ public class CilindroModel implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCilindro;
     @NotNull(message = "A data de fabricação não pode ser nula")
-
     private String dataFabricacao;
     @NotNull(message = "O serial number não pode ser nulo")
-
     private String serialNum;
     @NotNull(message = "O tipo do cilindro não pode ser nulo")
-
     private String tipoCilindro;
 
 
