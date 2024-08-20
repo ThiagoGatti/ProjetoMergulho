@@ -13,19 +13,20 @@
 <form th:action="@{/cilindros}" th:object="${cilindro}" method="post">
     <div>
         <label>Data de Fabricação:</label>
-        <input type="text" th:field="*{dataFabricacao}" />
+        <input type="text" th:field="*{dataFabricacao}" required />
     </div>
     <div>
         <label>Serial:</label>
-        <input type="text" th:field="*{serialNum}" />
+        <input type="text" th:field="*{serialNum}" required />
     </div>
     <div>
         <label>Tipo:</label>
-        <input type="text" th:field="*{tipoCilindro}" />
+        <input type="text" th:field="*{tipoCilindro}" required />
     </div>
-    <div>
-        <button type="submit">Salvar</button>
+
     </div>
+    <button type="submit">Salvar</button>
+
 </form>
 </body>
 

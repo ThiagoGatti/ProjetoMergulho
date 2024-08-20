@@ -1,6 +1,7 @@
 package mergulho.controle.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
@@ -18,10 +19,15 @@ public class CilindroModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long idCilindro;
-    private String dataFabricacao;
-    private String serialNum;
-    private String tipoCilindro;
+    @NotNull(message = "A data de fabricação não pode ser nula")
 
+    private String dataFabricacao;
+    @NotNull(message = "O serial number não pode ser nulo")
+
+    private String serialNum;
+    @NotNull(message = "O tipo do cilindro não pode ser nulo")
+
+    private String tipoCilindro;
 
 
 
