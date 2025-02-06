@@ -1,7 +1,7 @@
 package mergulho.controle.cilindro;
 
 import jakarta.validation.Valid;
-import mergulho.controle.cilindro.dtos.CilindroRecordDto;
+import mergulho.controle.cilindro.dtos.CilindroDto;
 import mergulho.controle.cilindro.domain.CilindroModel;
 import mergulho.controle.cilindro.repositories.CilindroRepository;
 import org.springframework.beans.BeanUtils;
@@ -31,22 +31,25 @@ public class CilindroController {
 
     @GetMapping("/new")
     public String newCilindroForm(Model model) {
-        model.addAttribute("cilindro", new CilindroRecordDto("", "", ""));
+        model.addAttribute("cilindro", new CilindroDto(null, null, null));
         return "cilindros/form";
     }
 
     @PostMapping
-    public String saveCilindro(@Valid @ModelAttribute("cilindro") CilindroRecordDto cilindroRecordDto,
+    public String saveCilindro(@Valid @ModelAttribute("cilindro") CilindroDto cilindroDto,
                                BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "cilindros/form";
         }
+
         CilindroModel cilindroModel = new CilindroModel();
-        BeanUtils.copyProperties(cilindroRecordDto, cilindroModel);
+        BeanUtils.copyProperties(cilindroDto, cilindroModel);
+
         cilindroRepository.save(cilindroModel);
 
         return "redirect:/cilindros";
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteCilindro(@PathVariable Long id) {
