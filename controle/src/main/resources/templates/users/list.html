@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Lista de Usuários</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Lista de Usuários</h1>
+
+<div class="tabela">
+  <table>
+    <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Email</th>
+      <th>Data de Nascimento</th>
+      <th>Sexo</th>
+      <th>País</th>
+      <th>Estado</th>
+      <th>Ações</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Loop para exibir os usuários -->
+    <tr th:each="user : ${users}">
+      <td th:text="${user.nome}"></td>
+      <td th:text="${user.email}"></td>
+      <td th:text="${user.dataNascimento}"></td>
+      <td th:text="${user.sexo}"></td>
+      <td th:text="${user.pais}"></td>
+      <td th:text="${user.estado}"></td>
+      <td>
+        <!-- Botões de ações (exemplo: editar ou excluir) -->
+        <a th:href="@{/users/edit/{id}(id=${user.id})}">Editar</a> |
+        <a th:href="@{/users/delete/{id}(id=${user.id})}">Excluir</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<a th:href="@{/users/new}">Adicionar Novo Usuário</a>
+
+</body>
+</html>
