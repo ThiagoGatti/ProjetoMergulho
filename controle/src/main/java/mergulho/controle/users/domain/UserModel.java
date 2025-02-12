@@ -79,4 +79,6 @@ public class UserModel implements Serializable {
 
     @Column(name = "cpf")
     private String cpf;
+
+
 }

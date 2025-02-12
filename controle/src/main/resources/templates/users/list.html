@@ -5,8 +5,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="/css/styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="/js/script.js"></script>
+
 </head>
 <body>
+
 <h1>Lista de Usuários</h1>
 
 <div class="tabela">
@@ -16,25 +20,29 @@
       <th>Nome</th>
       <th>Email</th>
       <th>Data de Nascimento</th>
-      <th>Sexo</th>
-      <th>País</th>
-      <th>Estado</th>
+      <th>Numero de Telefone</th>
       <th>Ações</th>
     </tr>
     </thead>
     <tbody>
-    <!-- Loop para exibir os usuários -->
     <tr th:each="user : ${users}">
       <td th:text="${user.nome}"></td>
       <td th:text="${user.email}"></td>
       <td th:text="${user.dataNascimento}"></td>
-      <td th:text="${user.sexo}"></td>
-      <td th:text="${user.pais}"></td>
-      <td th:text="${user.estado}"></td>
+      <td th:text="${user.numeroCelular}"></td>
       <td>
-        <!-- Botões de ações (exemplo: editar ou excluir) -->
-        <a th:href="@{/users/edit/{id}(id=${user.id})}">Editar</a> |
-        <a th:href="@{/users/delete/{id}(id=${user.id})}">Excluir</a>
+        <button onclick="openEditDialog(this)"
+                th:attr="data-id=${user.idUser},
+                           data-nome=${user.nome},
+                           data-email=${user.email},
+                           data-dataNascimento=${user.dataNascimento},
+                           data-numeroCelular=${user.numeroCelular}">
+          Editar
+        </button>
+        |
+        <a th:href="@{/users/delete/{id}(id=${user.idUser})}" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+          Excluir
+        </a>
       </td>
     </tr>
     </tbody>
@@ -42,6 +50,47 @@
 </div>
 
 <a th:href="@{/users/new}">Adicionar Novo Usuário</a>
+
+<!-- 🔹 MODAL DE EDIÇÃO -->
+<div id="editUserModal" style="display: none;">
+  <div class="modal-content">
+    <h2>Editar Usuário</h2>
+    <form id="editUserForm" method="post">
+      <input type="hidden" id="editId" name="id">
+
+      <label>Nome:</label>
+      <input type="text" id="editNome" name="nome" required>
+
+      <label>Email:</label>
+      <input type="email" id="editEmail" name="email" required>
+
+      <label>Data de Nascimento:</label>
+      <input type="date" id="editDataNascimento" name="dataNascimento" required>
+
+      <label>Número de Celular:</label>
+      <input type="text" id="editNumeroCelular" name="numeroCelular" required>
+
+      <label>CEP</label>
+      <input type="text" id="editCep" name="cep">
+
+      <button type="submit">Salvar</button>
+      <button type="button" onclick="closeEditDialog()">Cancelar</button>
+    </form>
+  </div>
+</div>
+
+<style>
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  }
+</style>
 
 </body>
 </html>
