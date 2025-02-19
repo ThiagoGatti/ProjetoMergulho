@@ -4,23 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/menu.css">
 
     <title>Controle MERGULHO</title>
 </head>
-
 <body>
-        
-<h1>BEM VINDO AO CONTROLE MERGULHO</h1>
+<!-- Menu lateral -->
+<div class="menu-lateral">
+    <h2>Menu</h2>
+    <ul>
+        <li><a th:href="@{/users/new}">Cadastro de Usuário</a></li>
+        <li><a th:href="@{/users}">Lista de Usuários</a></li>
+        <li><a href="#">Outra Opção</a></li>
+    </ul>
+</div>
 
-<a th:href="@{/cilindros}">
-    <button>Lista de Cilindros</button>
-</a>
+<!-- Conteúdo principal -->
+<div class="conteudo">
+    <h1>BEM VINDO AO CONTROLE MERGULHO</h1>
 
-<a th:href="@{/users}">
-    <button>Usuarios</button>
-</a>
+    <a th:href="@{/cilindros}">
+        <button>Lista de Cilindros</button>
+    </a>
 
-
+    <a th:href="@{/users}">
+        <button>Usuarios</button>
+    </a>
+</div>
 </body>
 
 </html>

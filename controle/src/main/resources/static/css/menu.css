@@ -1,0 +1,37 @@
+.menu-lateral {
+    width: 250px;
+    height: 100vh;
+    background-color: #6a0dad;
+    color: white;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    z-index: 1000; /* Mantém o menu visível acima dos outros elementos */
+}
+
+
+.menu-lateral h2 {
+    text-align: center;
+}
+
+.menu-lateral ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu-lateral ul li {
+    margin: 15px 0;
+}
+
+.menu-lateral ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    display: block;
+    padding: 10px;
+}
+
+.menu-lateral ul li a:hover {
+    background-color: #4b0082; /* Roxo mais escuro para o hover */
+}
