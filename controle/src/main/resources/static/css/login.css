@@ -1,0 +1,82 @@
+/* Reset básico e configuração do body */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-image: url("/imgs/background.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Box centralizado para o login */
+.login-container {
+    background-color: #ffffff;
+    border: 2px solid #6a0dad;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px 30px;
+    width: 320px;
+    text-align: center;
+}
+
+/* Título com tema roxo */
+.login-container h2 {
+    color: #6a0dad;
+    margin-bottom: 20px;
+}
+
+/* Estilo do formulário */
+.login-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login-container label {
+    text-align: left;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+.login-container input[type="email"],
+.login-container input[type="password"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+/* Botão de Enviar com tema roxo */
+.login-container button[type="submit"] {
+    padding: 10px;
+    background-color: #6a0dad;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-container button[type="submit"]:hover {
+    background-color: #520b9b;
+}
+
+/* Estilo para o link 'Esqueci minha senha' (futuro) */
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    color: #6a0dad;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}

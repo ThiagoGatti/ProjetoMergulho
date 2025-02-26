@@ -45,7 +45,7 @@ public class UserModel implements Serializable {
 
     @NotNull(message = "Sexo é obrigatório")
     @Column(name = "sexo")
-    private String sexo; // Masculino, Feminino, Prefiro Não Informar
+    private String sexo;
 
     @Column(name = "pais")
     private String pais;
