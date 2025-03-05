@@ -1,67 +1,56 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Lista de Usuários</title>
+  <title>Clientes Cadastrados</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/css/users.css">
-  <link rel="stylesheet" href="/css/menu.css">
-
+  <link rel="stylesheet" th:href="@{/css/menu.css}">
+  <link rel="stylesheet" th:href="@{/css/list.css}">
   <script src="/js/mask.js"></script>
-
-
 </head>
 <body>
+<div th:replace="~{fragments/menu :: menu}"></div>
 
-<div class="menu-lateral">
-  <h2>Menu</h2>
-  <ul>
-    <li><a th:href="@{/users/new}">Cadastro de Usuário</a></li>
-    <li><a th:href="@{/users}">Lista de Usuários</a></li>
-    <li><a href="#">Outra Opção</a></li>
-  </ul>
-</div>
 <div class="conteudo">
+  <h1>Clientes Cadastrados</h1>
 
-
-<h1>Lista de Usuários</h1>
-
-<div class="tabela">
-  <table>
-    <thead>
-    <tr>
-      <th>Nome</th>
-      <th>Email</th>
-      <th>Data de Nascimento</th>
-      <th>Numero de Telefone</th>
-      <th>Ações</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="user : ${users}">
-      <td th:text="${user.nome}"></td>
-      <td th:text="${user.email}"></td>
-      <td th:text="${user.dataNascimento}"></td>
-      <td th:text="${user.numeroCelular}"></td>
-      <td>
-        <button onclick="openEditDialog(this)"
-                th:attr="data-id=${user.idUser},
-                           data-nome=${user.nome},
-                           data-email=${user.email},
-                           data-dataNascimento=${user.dataNascimento},
-                           data-numeroCelular=${user.numeroCelular},
-                           data-cep=${user.cep}">
-          Editar
-        </button>
-        |
-        <a th:href="@{/users/delete/{id}(id=${user.idUser})}" onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
-          Excluir
-        </a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="tabela">
+    <table>
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Data de Nascimento</th>
+        <th>Número de Telefone</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="user : ${users}">
+        <td th:text="${user.nome}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.dataNascimento}"></td>
+        <td th:text="${user.numeroCelular}"></td>
+        <td>
+          <button onclick="openEditDialog(this)"
+                  th:attr="data-id=${user.idUser},
+                                               data-nome=${user.nome},
+                                               data-email=${user.email},
+                                               data-dataNascimento=${user.dataNascimento},
+                                               data-numeroCelular=${user.numeroCelular},
+                                               data-cep=${user.cep}">
+            Editar
+          </button>
+          |
+          <a th:href="@{/users/delete/{id}(id=${user.idUser})}"
+             onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+            Excluir
+          </a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 </body>
 </html>
