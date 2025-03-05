@@ -1,0 +1,19 @@
+<div th:fragment="menu" xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" th:href="@{/css/menu.css}">
+    <div class="menu-lateral">
+        <h2>Menu</h2>
+        <ul>
+            <li class="submenu">
+                <a href="#" class="submenu-trigger">Cadastros</a>
+                <ul class="submenu-content">
+                    <li><a th:href="@{/users}">Clientes</a></li>
+                    <li><a href="#">Cilindros</a></li>
+                    <li><a href="#">Staff</a></li>
+                </ul>
+            </li>
+            <li><a href="#">Configurações</a></li>
+            <li><a href="#">Fale Conosco</a></li>
+            <li><a href="#">Sobre</a></li>
+        </ul>
+    </div>
+</div>
