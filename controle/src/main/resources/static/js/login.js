@@ -1,5 +1,5 @@
 document.getElementById("loginForm").addEventListener("submit", async function(event) {
-    event.preventDefault(); // Impede o envio padrão do formulário
+    event.preventDefault();
 
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
@@ -13,7 +13,6 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
     const message = await response.text();
 
     if (message.trim() === "Login bem-sucedido!") {
-        // Redireciona para a lista de usuários após o login
         window.location.href = "/users";
     } else {
         document.getElementById("mensagem").textContent = message;
