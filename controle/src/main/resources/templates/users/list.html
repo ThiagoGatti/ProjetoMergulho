@@ -13,15 +13,18 @@
 
 <div class="conteudo">
   <h1>Clientes Cadastrados</h1>
+  <a href="/users/new" class="botao-adicionar">
+    <span>+</span>
+  </a>
 
-  <div class="tabela">
-    <table>
+  <div class="tabela-container">
+    <table class="tabela">
       <thead>
       <tr>
         <th>Nome</th>
         <th>Email</th>
         <th>Data de Nascimento</th>
-        <th>Número de Telefone</th>
+        <th>Telefone</th>
         <th>Ações</th>
       </tr>
       </thead>
@@ -32,24 +35,39 @@
         <td th:text="${user.dataNascimento}"></td>
         <td th:text="${user.numeroCelular}"></td>
         <td>
-          <button onclick="openEditDialog(this)"
-                  th:attr="data-id=${user.idUser},
-                                               data-nome=${user.nome},
-                                               data-email=${user.email},
-                                               data-dataNascimento=${user.dataNascimento},
-                                               data-numeroCelular=${user.numeroCelular},
-                                               data-cep=${user.cep}">
+          <button class="acao-editar"
+                  th:attr="data-id=${user.idUser}"
+                  onclick="openEditDialog(this)">
             Editar
           </button>
-          |
-          <a th:href="@{/users/delete/{id}(id=${user.idUser})}"
-             onclick="return confirm('Tem certeza que deseja excluir este usuário?')">
+          <button class="acao-excluir"
+                  th:onclick="'return confirm(\'Excluir usuário?\') ? window.location.href=\'/users/delete/' + ${user.idUser} + '\' : false'">
             Excluir
-          </a>
+          </button>
         </td>
       </tr>
       </tbody>
     </table>
+  </div>
+
+  <div class="paginacao">
+            <span th:if="${currentPage > 0}">
+                <a class="pagina-link" th:href="@{/users(page=${currentPage - 1}, size=${size}, search=${searchTerm})}">←</a>
+            </span>
+
+    <span th:each="i : ${#numbers.sequence(0, totalPages - 1)}">
+                <a th:if="${i != currentPage}"
+                   class="pagina-link"
+                   th:href="@{/users(page=${i}, size=${size}, search=${searchTerm})}"
+                   th:text="${i + 1}"></a>
+                <span th:unless="${i != currentPage}"
+                      class="pagina-atual"
+                      th:text="${i + 1}"></span>
+            </span>
+
+    <span th:if="${currentPage < totalPages - 1}">
+                <a class="pagina-link" th:href="@{/users(page=${currentPage + 1}, size=${size}, search=${searchTerm})}">→</a>
+            </span>
   </div>
 </div>
 </body>
