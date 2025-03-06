@@ -7,8 +7,12 @@ import mergulho.controle.cilindro.dtos.CilindroDto;
 import mergulho.controle.users.domain.UserModel;
 import mergulho.controle.users.dtos.UserDto;
 import mergulho.controle.users.repositories.UserRepository;
+import mergulho.controle.users.usecases.UserUsecase;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,11 +27,24 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserUsecase userUsecase;
 
     @GetMapping
-    public String listUsers(Model model) {
-        List<UserModel> users = userRepository.findAll();
-        model.addAttribute("users", users);
+    public String listUsers(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(value = "search", required = false) String searchTerm,
+            Model model) {
+
+        Page<UserModel> usersPage = userUsecase.searchUsers(searchTerm, PageRequest.of(page, size));
+
+        model.addAttribute("users", usersPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("size", size);
+        model.addAttribute("totalPages", usersPage.getTotalPages());
+        model.addAttribute("searchTerm", searchTerm);
+
         return "users/list";
     }
 
