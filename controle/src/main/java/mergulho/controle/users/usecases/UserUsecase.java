@@ -18,7 +18,6 @@ public class UserUsecase {
         if(termo == null || termo.isEmpty()) {
             return userRepository.findAll(pageable);
         }
-        return userRepository.search(termo, pageable);
+        return userRepository.findByNomeContainingOrCpfContaining(termo, pageable);
     }
-
 }

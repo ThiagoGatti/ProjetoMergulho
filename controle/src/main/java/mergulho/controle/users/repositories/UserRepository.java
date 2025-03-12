@@ -13,7 +13,10 @@ public interface UserRepository extends JpaRepository<UserModel, Long> {
 
     @Query("SELECT u FROM UserModel u WHERE " +
             "LOWER(u.nome) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
-            "LOWER(u.rg) LIKE LOWER(CONCAT('%', :termo, '%')) OR " +
             "LOWER(u.cpf) LIKE LOWER(CONCAT('%', :termo, '%'))")
-    Page<UserModel> search(@Param("termo") String termo, Pageable pageable);
+    Page<UserModel> findByNomeContainingOrCpfContaining(
+            @Param("termo") String termo,
+            Pageable pageable
+    );
+
 }
