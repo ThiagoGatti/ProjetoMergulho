@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Controller
@@ -41,7 +42,6 @@ public class UserController {
 
         model.addAttribute("users", usersPage.getContent());
         model.addAttribute("currentPage", page);
-        model.addAttribute("size", size);
         model.addAttribute("totalPages", usersPage.getTotalPages());
         model.addAttribute("searchTerm", searchTerm);
 
@@ -67,23 +67,23 @@ public class UserController {
         return "redirect:/users";
     }
 
-    // 🔹 Formulário de edição do usuário
     @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable Long id, Model model) {
-        UserModel user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + id));
+    public String showEditForm(@PathVariable Long id, Model model) {
+        UserModel user = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuário inválido: " + id));
+
         model.addAttribute("user", user);
         return "users/edit";
     }
 
-    // 🔹 Atualizar usuário
     @PostMapping("/update/{id}")
-    public String updateUser(@PathVariable Long id, @Valid @ModelAttribute("user") UserDto userDto,
-                             BindingResult result, Model model) {
+    public String updateUser(@PathVariable Long id, @Valid @ModelAttribute("user") UserDto userDto, BindingResult result, Model model) {
         if (result.hasErrors()) {
             return "users/edit";
         }
 
-        UserModel existingUser = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + id));
+        UserModel existingUser = userRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Usuário não encontrado: " + id));
         BeanUtils.copyProperties(userDto, existingUser);
         userRepository.save(existingUser);
         return "redirect:/users";

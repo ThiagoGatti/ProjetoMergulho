@@ -1,41 +1,84 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Cilindros</title>
+    <title>Clientes Cadastrados</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-
+    <link rel="stylesheet" th:href="@{/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
 </head>
 <body>
-
 <div th:replace="~{fragments/menu :: menu}"></div>
 
-<h1>Lista de Cilindros</h1>
+<div class="conteudo">
+    <h1>Clientes Cadastrados</h1>
+    <a href="/users/new" class="botao-adicionar">
+        <span>+</span>
+    </a>
 
-<div class = "tabela">
-<table>
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Data de Fabricação</th>
-        <th>Serial</th>
-        <th>Tipo</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="cilindro : ${cilindros}">
-        <td th:text="${cilindro.idCilindro}"></td>
-        <td th:text="${cilindro.dataFabricacao}"></td>
-        <td th:text="${cilindro.serialNum}"></td>
-        <td th:text="${cilindro.tipoCilindro}"></td>
-    </tr>
-    </tbody>
-</table>
+    <!-- Formulário de Busca -->
+    <div class="busca-container">
+        <form th:action="@{/users}" method="get" class="busca-form">
+            <input type="text" name="search" class="busca-input"
+                   placeholder="Buscar por nome ou CPF" th:value="${searchTerm}">
+            <input type="hidden" name="size" th:value="${size}">
+            <button type="submit" class="busca-botao">Buscar</button>
+        </form>
+    </div>
 
+    <!-- Tabela de Usuários -->
+    <div class="tabela-container">
+        <table class="tabela">
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Email</th>
+                <th>Data de Nascimento</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.nome}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.dataNascimento} ? ${#dates.format(user.dataNascimento, 'dd/MM/yyyy')} : 'Não informado'"></td>
+                <td th:text="${user.numeroCelular} ?: 'Não informado'"></td>
+                <td>
+                    <a th:href="@{/users/edit/{id}(id=${user.idUser})}"
+                       class="acao-editar">Editar</a>
+                    <button class="acao-excluir"
+                            th:onclick="'return confirm(\'Excluir usuário?\') ? window.location.href=\'/users/delete/' + ${user.idUser} + '\' : false'">
+                        Excluir
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Paginação -->
+    <div class="paginacao">
+    <span th:if="${currentPage > 0}">
+      <a class="pagina-link"
+         th:href="@{/users(page=${currentPage - 1}, size=${size}, search=${searchTerm})}">← Anterior</a>
+    </span>
+
+        <span th:each="i : ${#numbers.sequence(1, totalPages)}">
+      <a th:if="${i != currentPage + 1}"
+         class="pagina-link"
+         th:href="@{/users(page=${i - 1}, size=${size}, search=${searchTerm})}"
+         th:text="${i}"></a>
+      <span th:if="${i == currentPage + 1}"
+            class="pagina-atual"
+            th:text="${i}"></span>
+    </span>
+
+        <span th:if="${currentPage < totalPages - 1}">
+      <a class="pagina-link"
+         th:href="@{/users(page=${currentPage + 1}, size=${size}, search=${searchTerm})}">Próximo →</a>
+    </span>
+    </div>
 </div>
-
-<a th:href="@{/cilindros/new}">Adicionar Novo Cilindro</a>
-
 </body>
 </html>

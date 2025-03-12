@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "TB_USUARIO")
@@ -37,7 +38,7 @@ public class UserModel implements Serializable {
 
     @NotNull(message = "Data de nascimento é obrigatória")
     @Column(name = "data_nascimento")
-    private String dataNascimento;
+    private LocalDate dataNascimento;
 
     @NotNull(message = "Número de celular é obrigatório")
     @Column(name = "numero_celular")

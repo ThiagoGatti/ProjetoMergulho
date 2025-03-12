@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 public class UserDto {
@@ -17,8 +19,8 @@ public class UserDto {
     @Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", message = "Email inválido")
     private String email;
 
-    @NotNull(message = "A data de nascimento não pode ser nula")
-    private String dataNascimento;
+    @NotNull(message = "Data de nascimento é obrigatória")
+    private LocalDate dataNascimento;
 
     @NotNull(message = "O número de celular não pode ser nulo")
     private String numeroCelular;
