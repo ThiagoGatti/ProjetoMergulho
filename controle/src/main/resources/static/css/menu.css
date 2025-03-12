@@ -1,7 +1,10 @@
+@import url('/css/base.css');
 /* menu.css */
 body {
     overflow-x: hidden;
     min-height: 100vh;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+
 }
 
 .menu-lateral {
@@ -22,6 +25,8 @@ body {
     font-size: 1.8em;
     color: #fff;
     text-transform: uppercase;
+    font-family: 'Helvetica', 'Arial', sans-serif;
+
 }
 
 .menu-lateral ul {

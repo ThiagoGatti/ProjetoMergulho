@@ -1,0 +1,21 @@
+:root {
+  --fonte-principal: 'Helvetica', 'Arial', sans-serif;
+  --azul-principal: #0077b6;
+  --azul-escuro: #005f73;
+  --vermelho: #dc3545;
+  --vermelho-escuro: #c82333;
+  --cinza-claro: #f4f4f4;
+  --borda: #ccc;
+  --sombra: rgba(0,0,0,0.1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--fonte-principal);
+}
+
+body {
+  background-color: var(--cinza-claro);
+}

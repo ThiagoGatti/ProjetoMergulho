@@ -1,14 +1,17 @@
+@import url('/css/base.css');
 /* list.css */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Helvetica', 'Arial', sans-serif; /* Alterado */
 }
 
 body {
     overflow-x: hidden;
     background-color: #f4f4f4;
+    font-family: 'Helvetica', 'Arial', sans-serif; /* Adicionado */
+
 }
 
 .conteudo {
