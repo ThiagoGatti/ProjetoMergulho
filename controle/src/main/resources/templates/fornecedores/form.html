@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${fornecedor.id != null} ? 'Editar Fornecedor' : 'Novo Fornecedor'"></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+    <link rel="stylesheet" th:href="@{/css/edit.css}">
+</head>
+<body>
+
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="conteudo">
+
+    <form th:action="@{${fornecedor.id != null} ? '/fornecedores/atualizar/' + ${fornecedor.id} : '/fornecedores'}"
+          th:object="${fornecedor}"
+          method="post">
+
+        <div th:if="${fornecedor.id != null}">
+            <input type="hidden" name="id" th:value="${fornecedor.id}">
+        </div>
+
+        <div class="form-top">
+            <div class="col-left">
+                <fieldset>
+                    <legend>Informações do Fornecedor</legend>
+
+                    <div class="form-group">
+                        <label for="nome">Nome:</label>
+                        <input type="text" id="nome" th:field="*{nome}" placeholder="Nome do fornecedor" required>
+                        <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="estado">Estado:</label>
+                        <select id="estado" th:field="*{estado}" class="form-control" required>
+                            <option value="" disabled selected>Selecione um estado</option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="error-message"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="pais">País:</label>
+                        <select id="pais" th:field="*{pais}" class="form-control" required>
+                            <option value="" disabled selected>Selecione um país</option>
+                        </select>
+                        <span th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}" class="error-message"></span>
+                    </div>
+
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="botao-salvar">
+                <span th:text="${fornecedor.id != null} ? 'Atualizar' : 'Salvar'"></span>
+            </button>
+            <a th:href="@{/fornecedores}" class="botao-cancelar">Cancelar</a>
+        </div>
+    </form>
+</div>
+
+<script th:src="@{/js/countries.js}"></script>
+<script th:src="@{/js/states.js}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentCountry = /*[[${fornecedor.pais}]]*/ null;
+        const currentState = /*[[${fornecedor.estado}]]*/ null;
+
+        populateCountries('pais', currentCountry);
+        populateStates('estado', currentState);
+    });
+</script>
+
+</body>
+</html>

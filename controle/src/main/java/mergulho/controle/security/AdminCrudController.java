@@ -2,7 +2,7 @@ package mergulho.controle.security;
 
 import mergulho.controle.security.domain.AdminModel;
 import mergulho.controle.security.dtos.AdminUpdateDto;
-import mergulho.controle.security.usecase.AdminUsecase;
+import mergulho.controle.security.usecases.AdminUsecase;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;

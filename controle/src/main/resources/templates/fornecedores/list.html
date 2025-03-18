@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Fornecedores</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" th:href="@{/css/base.css}">
+  <link rel="stylesheet" th:href="@{/css/list.css}">
+</head>
+<body>
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="conteudo">
+  <h1>Fornecedores</h1>
+
+  <a th:href="@{/fornecedores/new}" class="botao-adicionar">+</a>
+
+  <div class="tabela-container">
+    <table class="tabela">
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Estado</th>
+        <th>País</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="fornecedor : ${fornecedores.content}">
+        <td th:text="${fornecedor.nome}"></td>
+        <td th:text="${fornecedor.estado}"></td>
+        <td th:text="${fornecedor.pais}"></td>
+        <td>
+          <a th:href="@{/fornecedores/editar/{id}(id=${fornecedor.id})}"
+             class="acao-editar">Editar</a>
+          <a th:href="@{/fornecedores/excluir/{id}(id=${fornecedor.id})}"
+             class="acao-excluir"
+             onclick="return confirm('Tem certeza que deseja excluir este fornecedor?')">Excluir</a>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="paginacao">
+        <span th:if="${fornecedores.number > 0}">
+            <a class="pagina-link"
+               th:href="@{/fornecedores(page=${fornecedores.number - 1}, size=${fornecedores.size})}">←</a>
+        </span>
+
+    <span th:each="i : ${#numbers.sequence(1, fornecedores.totalPages)}">
+            <a th:if="${i != fornecedores.number + 1}"
+               class="pagina-link"
+               th:href="@{/fornecedores(page=${i - 1}, size=${fornecedores.size})}"
+               th:text="${i}"></a>
+            <span th:if="${i == fornecedores.number + 1}"
+                  class="pagina-atual"
+                  th:text="${i}"></span>
+        </span>
+
+    <span th:if="${fornecedores.number < fornecedores.totalPages - 1}">
+            <a class="pagina-link"
+               th:href="@{/fornecedores(page=${fornecedores.number + 1}, size=${fornecedores.size})}">→</a>
+        </span>
+  </div>
+</div>
+</body>
+</html>
