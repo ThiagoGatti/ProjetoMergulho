@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/base.css}">
-    <link rel="stylesheet" th:href="@{/css/users.css}">
+    <link rel="stylesheet" th:href="@{/css/edit.css}">
     <link rel="stylesheet" th:href="@{/css/menu.css}">
     <script src="/js/mask.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -131,6 +131,9 @@
 
         populateCountries('pais', currentCountry);
         populateStates('estado', currentState);
+
+        $('#cpf').mask('000.000.000-00');
+        $('#cep').mask('00000-000');
     });
 </script>
 
