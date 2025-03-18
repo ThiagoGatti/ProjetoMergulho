@@ -5,8 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/edit.css}">
     <link rel="stylesheet" th:href="@{/css/menu.css}">
-    <link rel="stylesheet" th:href="@{/css/users.css}">
     <script src="/js/mask.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -80,11 +80,17 @@
             <legend>Endereço</legend>
             <div class="form-group">
                 <label for="pais">País:</label>
-                <input type="text" id="pais" th:field="*{pais}" placeholder="Digite o país"/>
+                <select id="pais" th:field="*{pais}" class="form-control">
+                    <option value="" disabled selected>Selecione um país</option>
+                </select>
+                <span th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}" class="error-message"></span>
             </div>
             <div class="form-group">
                 <label for="estado">Estado:</label>
-                <input type="text" id="estado" th:field="*{estado}" placeholder="Digite o estado"/>
+                <select id="estado" th:field="*{estado}" class="form-control">
+                    <option value="" disabled selected>Selecione um estado</option>
+                </select>
+                <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="error-message"></span>
             </div>
             <div class="form-group">
                 <label for="cep">CEP:</label>
@@ -115,5 +121,21 @@
         <button type="submit">Cadastrar</button>
     </form>
 </div>
+
+<script th:src="@{/js/countries.js}"></script>
+<script th:src="@{/js/states.js}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentCountry = /*[[${user.pais}]]*/ null;
+        const currentState = /*[[${user.estado}]]*/ null;
+
+        populateCountries('pais', currentCountry);
+        populateStates('estado', currentState);
+
+        $('#cpf').mask('000.000.000-00');
+        $('#cep').mask('00000-000');
+    });
+</script>
+
 </body>
 </html>

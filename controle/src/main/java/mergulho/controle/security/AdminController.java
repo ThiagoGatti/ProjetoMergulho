@@ -1,7 +1,7 @@
 package mergulho.controle.security;
 
 import mergulho.controle.security.dtos.AdminDto;
-import mergulho.controle.security.usecase.AdminUsecase;
+import mergulho.controle.security.usecases.AdminUsecase;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
