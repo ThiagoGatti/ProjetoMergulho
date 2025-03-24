@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // Verifica se jQuery e jQuery Mask já estão carregados
     if (typeof window.jQuery === 'undefined') {
         console.error("jQuery não está carregado!");
         return;
@@ -10,9 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
         return;
     }
 
-    // Aplica as máscaras
     $(document).ready(function() {
-        $('#rg').mask('00.000.000-0', { reverse: true });
+        $('#rg').mask('00.000.000-0');
         $('#telefone').mask('0000-0000');
         $('#numeroCelular').mask('(00) 00000-0000');
         $('#cep').mask('00000-000');

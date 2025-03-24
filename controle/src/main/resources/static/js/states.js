@@ -11,7 +11,7 @@ const statesBR = [
     "São Paulo", "Sergipe", "Tocantins"
 ];
 
-function populateStates(selectId, currentState) { // Adicione o parâmetro
+function populateStates(selectId, currentState) {
     const select = document.getElementById(selectId);
     if (!select) return;
 
@@ -21,8 +21,12 @@ function populateStates(selectId, currentState) { // Adicione o parâmetro
         const option = document.createElement("option");
         option.value = state;
         option.textContent = state;
-        option.selected = (state === currentState); // Compare com o parâmetro
+        option.selected = (state === currentState);
         select.appendChild(option);
     });
-}
 
+    if (currentState) {
+        select.value = currentState;
+    }
+
+}

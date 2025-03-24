@@ -263,4 +263,9 @@ function populateCountries(selectId, currentCountry) {
         option.selected = (country === currentCountry);
         select.appendChild(option);
     });
+
+    if (currentCountry) {
+        select.value = currentCountry;
+    }
+
 }

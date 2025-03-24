@@ -89,7 +89,7 @@
             <div id="brazil-fields" style="display: none;">
                 <div class="form-group">
                     <label for="estado">Estado:</label>
-                    <select id="estado" th:field="*{estado}" class="form-control" disabled required>
+                    <select id="estado" th:field="*{estado}" class="form-control" disabled >
                         <option value="" disabled selected>Selecione um estado</option>
                     </select>
                     <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="error-message"></span>
@@ -100,11 +100,11 @@
                 </div>
                 <div class="form-group">
                     <label for="endereco">Endereço:</label>
-                    <input type="text" id="endereco" th:field="*{endereco}" placeholder="Digite o endereço" required/>
+                    <input type="text" id="endereco" th:field="*{endereco}" placeholder="Digite o endereço" />
                 </div>
                 <div class="form-group">
                     <label for="numero">Número:</label>
-                    <input type="text" id="numero" th:field="*{numero}" placeholder="Digite o número" required/>
+                    <input type="text" id="numero" th:field="*{numero}" placeholder="Digite o número" />
                 </div>
                 <div class="form-group">
                     <label for="complemento">Complemento:</label>
@@ -112,11 +112,11 @@
                 </div>
                 <div class="form-group">
                     <label for="bairro">Bairro:</label>
-                    <input type="text" id="bairro" th:field="*{bairro}" placeholder="Digite o bairro" required/>
+                    <input type="text" id="bairro" th:field="*{bairro}" placeholder="Digite o bairro" />
                 </div>
                 <div class="form-group">
                     <label for="cidade">Cidade:</label>
-                    <input type="text" id="cidade" th:field="*{cidade}" placeholder="Digite a cidade" required/>
+                    <input type="text" id="cidade" th:field="*{cidade}" placeholder="Digite a cidade" />
                 </div>
             </div>
         </fieldset>
