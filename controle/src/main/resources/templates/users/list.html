@@ -17,7 +17,6 @@
     <span>+</span>
   </a>
 
-  <!-- Formulário de Busca -->
   <div class="busca-container">
     <form th:action="@{/users}" method="get" class="busca-form">
       <input type="text" name="search" class="busca-input"
@@ -27,7 +26,6 @@
     </form>
   </div>
 
-  <!-- Tabela de Usuários -->
   <div class="tabela-container">
     <table class="tabela">
       <thead>
@@ -46,7 +44,6 @@
         <td th:text="${#temporals.format(user.dataNascimento, 'dd/MM/yyyy')}"></td>
         <td th:text="${user.numeroCelular}"></td>
         <td>
-          <!-- Link corrigido para a página de edição -->
           <a th:href="@{/users/edit/{id}(id=${user.idUser})}"
              class="acao-editar">Editar</a>
 
@@ -60,7 +57,6 @@
     </table>
   </div>
 
-  <!-- Paginação -->
   <div class="paginacao">
     <span th:if="${currentPage > 0}">
       <a class="pagina-link"

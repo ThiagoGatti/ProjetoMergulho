@@ -250,7 +250,7 @@ const countryList = [
 	"Åland Islands"
 ];
 
-function populateCountries(selectId, currentCountry) { // Adicione o parâmetro
+function populateCountries(selectId, currentCountry) {
     const select = document.getElementById(selectId);
     if (!select) return;
 
@@ -260,7 +260,7 @@ function populateCountries(selectId, currentCountry) { // Adicione o parâmetro
         const option = document.createElement("option");
         option.value = country;
         option.textContent = country;
-        option.selected = (country === currentCountry); // Compare com o parâmetro
+        option.selected = (country === currentCountry);
         select.appendChild(option);
     });
 }

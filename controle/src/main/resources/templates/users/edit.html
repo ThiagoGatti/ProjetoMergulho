@@ -39,6 +39,10 @@
                    required>
           </div>
           <div class="form-group">
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" th:field="*{telefone}" placeholder="Digite o telefone"/>
+          </div>
+          <div class="form-group">
             <label for="numeroCelular">Celular:</label>
             <input type="text" id="numeroCelular" th:field="*{numeroCelular}"
                    class="celular-mask" required>
@@ -79,12 +83,14 @@
     <fieldset>
       <legend>Endereço</legend>
       <div class="form-group">
-        <label for="pais">País:</label>
-        <input type="text" id="pais" th:field="*{pais}">
+        <select id="pais" th:field="*{pais}" class="form-control">
+          <option value="" disabled selected>Selecione um país</option>
+        </select>
       </div>
       <div class="form-group">
-        <label for="estado">Estado:</label>
-        <input type="text" id="estado" th:field="*{estado}">
+        <select id="estado" th:field="*{estado}" class="form-control">
+          <option value="" disabled selected>Selecione um estado</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="cep">CEP:</label>
@@ -118,9 +124,17 @@
     </div>
   </form>
 </div>
+<script th:src="@{/js/countries.js}"></script>
+<script th:src="@{/js/states.js}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const currentCountry = /*[[${user.pais}]]*/ 'Brasil';
+        const currentState = /*[[${user.estado}]]*/ null;
 
-<script th:src="@{/js/mask.js}"></script>
-
+        populateCountries('pais', currentCountry);
+        populateStates('estado', currentState);
+    });
+</script>
 
 </body>
 </html>
