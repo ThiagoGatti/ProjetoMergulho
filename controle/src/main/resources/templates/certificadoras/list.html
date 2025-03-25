@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Certificadoras</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/base.css}">
+    <link rel="stylesheet" th:href="@{/css/menu.css}">
+    <link rel="stylesheet" th:href="@{/css/list.css}">
+</head>
+<body>
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="conteudo">
+    <h1>Certificadoras</h1>
+    <a href="/certificadoras/new" class="botao-adicionar">
+        <span>+</span>
+    </a>
+
+    <div class="busca-container">
+        <form th:action="@{/certificadoras}" method="get" class="busca-form">
+            <input type="text" name="search" class="busca-input"
+                   placeholder="Buscar por nome" th:value="${searchTerm}">
+            <input type="hidden" name="size" th:value="${size}">
+            <button type="submit" class="busca-botao">Buscar</button>
+            <a th:href="@{/certificadoras}" class="botao-limpar">Limpar</a>
+        </form>
+    </div>
+
+    <div class="tabela-container">
+        <table class="tabela">
+            <thead>
+            <tr>
+                <th>
+                    <a th:href="@{/certificadoras(search=${searchTerm}, size=${size}, sort=nome)}">
+                        Nome
+                    </a>
+                </th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="certificadora : ${certificadoras.content}">
+                <td th:text="${certificadora.nome}"></td>
+                <td>
+                    <a th:href="@{/certificacoes/new(certificadoraId=${certificadora.idCertificadora})}"
+                       class="acao-editar">Adicionar Certificação</a>
+                    <button class="acao-excluir"
+                            th:onclick="'return confirm(\'Excluir certificadora?\') ? window.location.href=\'/certificadoras/delete/' + ${certificadora.idCertificadora} + '\' : false'">
+                        Excluir
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="paginacao">
+  <span th:if="${certificadoras.number > 0}">
+    <a class="pagina-link"
+       th:href="@{/certificadoras(page=0, size=${size}, search=${searchTerm}, sort=${sort})}">«</a>
+  </span>
+
+        <span th:each="i : ${#numbers.sequence(1, certificadoras.totalPages)}">
+    <a th:if="${i != certificadoras.number + 1}"
+       class="pagina-link"
+       th:href="@{/certificadoras(page=${i-1}, size=${size}, search=${searchTerm}, sort=${sort})}"
+       th:text="${i}"></a>
+    <span th:if="${i == certificadoras.number + 1}"
+          class="pagina-atual"
+          th:text="${i}"></span>
+  </span>
+
+        <span th:if="${certificadoras.number < certificadoras.totalPages - 1}">
+    <a class="pagina-link"
+       th:href="@{/certificadoras(page=${certificadoras.totalPages-1}, size=${size}, search=${searchTerm}, sort=${sort})}">»</a>
+  </span>
+    </div>
+
+</div>
+</body>
+</html>

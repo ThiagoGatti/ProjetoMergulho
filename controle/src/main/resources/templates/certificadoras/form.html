@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Nova Certificadora</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/base.css}">
+  <link rel="stylesheet" th:href="@{/css/edit.css}">
+  <link rel="stylesheet" th:href="@{/css/menu.css}">
+</head>
+<body>
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="conteudo">
+  <h1>Nova Certificadora</h1>
+
+  <form th:action="@{/certificadoras}" th:object="${certificadora}" method="post">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" th:field="*{nome}" required>
+      <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="botao-salvar">Salvar</button>
+      <a th:href="@{/certificadoras}" class="botao-cancelar">Cancelar</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>
