@@ -89,7 +89,6 @@ public class UserController {
         return "redirect:/users";
     }
 
-    // 🔹 Remover usuário
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
