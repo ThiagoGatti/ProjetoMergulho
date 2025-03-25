@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Certificações</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/base.css}">
+  <link rel="stylesheet" th:href="@{/css/menu.css}">
+  <link rel="stylesheet" th:href="@{/css/list.css}">
+</head>
+<body>
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="conteudo">
+  <h1>Certificações</h1>
+  <a href="/certificacoes/new" class="botao-adicionar">
+    <span>+</span>
+  </a>
+
+  <div class="busca-container">
+    <form th:action="@{/certificacoes}" method="get" class="busca-form">
+      <input type="text" name="search" class="busca-input"
+             placeholder="Buscar por nome ou certificadora" th:value="${searchTerm}">
+      <input type="hidden" name="size" th:value="${size}">
+      <button type="submit" class="busca-botao">Buscar</button>
+      <a th:href="@{/certificacoes}" class="botao-limpar">Limpar</a>
+    </form>
+  </div>
+
+  <div class="tabela-container">
+    <table class="tabela">
+      <thead>
+      <tr>
+        <th>Nome</th>
+        <th>
+          <a th:href="@{/certificacoes(search=${searchTerm}, size=${size}, sort=certificadora.nome)}">
+            Certificadora
+          </a>
+        </th>
+        <th>Carga Horária</th>
+        <th>Validade</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="certificacao : ${certificacoes.content}">
+        <td th:text="${certificacao.nome}"></td>
+        <td th:text="${certificacao.certificadora.nome}"></td>
+        <td th:text="${certificacao.cargaHoraria}"></td>
+        <td th:text="${#temporals.format(certificacao.validade, 'dd/MM/yyyy')}"></td>
+        <td>
+          <!-- Correção aqui: usando data attributes em vez de onclick direto -->
+          <button class="acao-detalhes"
+                  th:attr="data-descricao=${certificacao.descricao ?: 'Nenhuma descrição disponível'}">
+            Ver Descrição
+          </button>
+          <button class="acao-excluir"
+                  th:onclick="'return confirm(\'Excluir certificação?\') ? window.location.href=\'/certificacoes/delete/' + ${certificacao.idCertificacao} + '\' : false'">
+            Excluir
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="paginacao">
+    <span th:if="${certificacoes.number > 0}">
+      <a class="pagina-link"
+         th:href="@{/certificacoes(page=0, size=${size}, search=${searchTerm}, sort=${sort})}">«</a>
+    </span>
+
+    <span th:each="i : ${#numbers.sequence(1, certificacoes.totalPages)}">
+      <a th:if="${i != certificacoes.number + 1}"
+         class="pagina-link"
+         th:href="@{/certificacoes(page=${i-1}, size=${size}, search=${searchTerm}, sort=${sort})}"
+         th:text="${i}"></a>
+      <span th:if="${i == certificacoes.number + 1}"
+            class="pagina-atual"
+            th:text="${i}"></span>
+    </span>
+
+    <span th:if="${certificacoes.number < certificacoes.totalPages - 1}">
+      <a class="pagina-link"
+         th:href="@{/certificacoes(page=${certificacoes.totalPages-1}, size=${size}, search=${searchTerm}, sort=${sort})}">»</a>
+    </span>
+  </div>
+</div>
+
+<script>
+// Nova implementação usando data attributes
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.acao-detalhes').forEach(button => {
+        button.addEventListener('click', function() {
+            const descricao = this.getAttribute('data-descricao');
+            alert('Descrição:\n\n' + descricao);
+        });
+    });
+});
+</script>
+</body>
+</html>

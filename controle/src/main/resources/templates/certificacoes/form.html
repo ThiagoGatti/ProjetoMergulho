@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Nova Certificação</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" th:href="@{/css/base.css}">
+  <link rel="stylesheet" th:href="@{/css/edit.css}">
+  <link rel="stylesheet" th:href="@{/css/menu.css}">
+</head>
+<body>
+<div th:replace="~{fragments/menu :: menu}"></div>
+
+<div class="conteudo">
+  <h1>Nova Certificação</h1>
+
+  <form th:action="@{/certificacoes}" th:object="${certificacao}" method="post">
+    <div class="form-group">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" th:field="*{nome}" required>
+    </div>
+
+    <div class="form-group">
+      <label for="descricao">Descrição:</label>
+      <textarea id="descricao" th:field="*{descricao}"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="cargaHoraria">Carga Horária:</label>
+      <input type="number" id="cargaHoraria" th:field="*{cargaHoraria}">
+    </div>
+
+    <div class="form-group">
+      <label for="validade">Validade:</label>
+      <input type="date" id="validade" th:field="*{validade}"
+             pattern="\d{4}-\d{2}-\d{2}"
+             oninput="this.value = this.value.replace(/[^0-9-]/g, '').slice(0,10); validarData(this)"
+             max="2100-12-31"
+             title="Digite uma data válida entre 2000-01-01 e 2100-12-31">
+    </div>
+    <div class="form-group">
+      <label for="certificadoraId">Certificadora:</label>
+      <select id="certificadoraId" th:field="*{certificadoraId}" required
+              th:disabled="${certificacao.certificadoraId != null}">
+        <option value="">Selecione uma certificadora</option>
+        <option th:each="cert : ${certificadoras}"
+                th:value="${cert.idCertificadora}"
+                th:text="${cert.nome}"
+                th:selected="${cert.idCertificadora == certificacao.certificadoraId}">
+        </option>
+      </select>
+      <input type="hidden" th:if="${certificacao.certificadoraId != null}"
+             th:field="*{certificadoraId}"/>
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="botao-salvar">Salvar</button>
+      <a th:href="@{/certificacoes}" class="botao-cancelar">Cancelar</a>
+    </div>
+  </form>
+</div>
+<script>
+function validarData(input) {
+    const partes = input.value.split('-');
+    if (partes[0] && partes[0].length > 4) {
+        partes[0] = partes[0].substr(0,4);
+        input.value = partes.join('-').substr(0,10);
+    }
+
+    input.setCustomValidity(
+        new Date(input.value) > new Date('2100-12-31') ?
+        'Data máxima permitida: 31/12/2100' :
+        ''
+    );
+}
+</script></body>
+</html>
