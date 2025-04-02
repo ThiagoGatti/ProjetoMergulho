@@ -1,3 +1,5 @@
+/* list css */
+
 .conteudo {
   margin-left: 250px;
   padding: 20px;
@@ -196,6 +198,57 @@
   background-color: var(--azul-escuro);
   transform: scale(1.1);
 }
+/* Estilização para o botão "Ver Descrição" */
+.acao-detalhes {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.acao-detalhes:hover {
+    background-color: #45a049;
+}
+
+.acao-detalhes:active {
+    background-color: #3d8b40;
+}
+
+.tabela thead th a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    position: relative;
+    padding-right: 15px;
+    transition: color 0.3s ease;
+}
+
+.tabela thead th a:hover {
+    color: #007bff;
+}
+
+.tabela thead th a::after {
+    content: '\25B2';
+    position: absolute;
+    right: 0;
+    font-size: 12px;
+    color: transparent;
+    transition: color 0.3s ease;
+}
+
+.tabela thead th a.ordenado-asc::after {
+    color: #007bff;
+    content: '\25B2';
+}
+
+.tabela thead th a.ordenado-desc::after {
+    color: #007bff;
+    content: '\25BC';
+}
 
 @media (max-width: 768px) {
   .conteudo {
@@ -213,4 +266,6 @@
     width: 50px;
     height: 50px;
   }
+
+
 }

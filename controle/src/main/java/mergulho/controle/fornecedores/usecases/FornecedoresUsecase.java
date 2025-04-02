@@ -15,10 +15,14 @@ public class FornecedoresUsecase {
         this.repository = repository;
     }
 
-    public Page<FornecedoresModel> listarFornecedores(Pageable pageable) {
-        return repository.findAll(pageable);
-    }
 
+    public Page<FornecedoresModel> listarFornecedores(String searchTerm, Pageable pageable) {
+        if (searchTerm != null && !searchTerm.isEmpty()) {
+            return repository.findByNomeContainingIgnoreCase(searchTerm, pageable);
+        } else {
+            return repository.findAll(pageable);
+        }
+    }
     public FornecedoresModel buscarPorId(Long id) {
         return repository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Fornecedor não encontrado"));

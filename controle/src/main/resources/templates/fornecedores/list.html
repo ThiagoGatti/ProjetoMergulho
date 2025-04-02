@@ -14,6 +14,15 @@
 
   <a th:href="@{/fornecedores/new}" class="botao-adicionar">+</a>
 
+  <div class="busca-container">
+    <form th:action="@{/fornecedores}" method="get" class="busca-form">
+      <input type="text" name="search" class="busca-input"
+             placeholder="Buscar por nome" th:value="${searchTerm}">
+      <input type="hidden" name="size" th:value="${size}">
+      <button type="submit" class="busca-botao">Buscar</button>
+    </form>
+  </div>
+
   <div class="tabela-container">
     <table class="tabela">
       <thead>
@@ -25,14 +34,12 @@
       </tr>
       </thead>
       <tbody>
-      <tr th:each="fornecedor : ${fornecedores.content}">
+      <tr th:each="fornecedor : ${fornecedoresPage.content}">
         <td th:text="${fornecedor.nome}"></td>
         <td th:text="${fornecedor.estado}"></td>
         <td th:text="${fornecedor.pais}"></td>
         <td>
-          <a th:href="@{/fornecedores/editar/{id}(id=${fornecedor.id})}"
-             class="acao-editar">Editar</a>
-          <a th:href="@{/fornecedores/excluir/{id}(id=${fornecedor.id})}"
+          <a th:href="@{/fornecedores/delete/{id}(id=${fornecedor.id})}"
              class="acao-excluir"
              onclick="return confirm('Tem certeza que deseja excluir este fornecedor?')">Excluir</a>
         </td>
@@ -42,25 +49,25 @@
   </div>
 
   <div class="paginacao">
-        <span th:if="${fornecedores.number > 0}">
-            <a class="pagina-link"
-               th:href="@{/fornecedores(page=${fornecedores.number - 1}, size=${fornecedores.size})}">←</a>
-        </span>
+  <span th:if="${fornecedoresPage.number > 0}">
+    <a class="pagina-link"
+       th:href="@{/fornecedores(page=${fornecedoresPage.number - 1}, size=${fornecedoresPage.size}, search=${searchTerm})}">←</a>
+  </span>
 
-    <span th:each="i : ${#numbers.sequence(1, fornecedores.totalPages)}">
-            <a th:if="${i != fornecedores.number + 1}"
-               class="pagina-link"
-               th:href="@{/fornecedores(page=${i - 1}, size=${fornecedores.size})}"
-               th:text="${i}"></a>
-            <span th:if="${i == fornecedores.number + 1}"
-                  class="pagina-atual"
-                  th:text="${i}"></span>
-        </span>
+    <span th:each="i : ${#numbers.sequence(1, fornecedoresPage.totalPages)}">
+    <a th:if="${i != fornecedoresPage.number + 1}"
+       class="pagina-link"
+       th:href="@{/fornecedores(page=${i - 1}, size=${fornecedoresPage.size}, search=${searchTerm})}"
+       th:text="${i}"></a>
+    <span th:if="${i == fornecedoresPage.number + 1}"
+          class="pagina-atual"
+          th:text="${i}"></span>
+  </span>
 
-    <span th:if="${fornecedores.number < fornecedores.totalPages - 1}">
-            <a class="pagina-link"
-               th:href="@{/fornecedores(page=${fornecedores.number + 1}, size=${fornecedores.size})}">→</a>
-        </span>
+    <span th:if="${fornecedoresPage.number < fornecedoresPage.totalPages - 1}">
+    <a class="pagina-link"
+       th:href="@{/fornecedores(page=${fornecedoresPage.number + 1}, size=${fornecedoresPage.size}, search=${searchTerm})}">→</a>
+  </span>
   </div>
 </div>
 </body>

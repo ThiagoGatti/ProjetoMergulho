@@ -38,28 +38,24 @@ public class AdminCrudController {
         return "admin/list";
     }
 
-    // Mostrar formulário de criação
     @GetMapping("/novo")
     public String showAddAdminForm(Model model) {
         model.addAttribute("admin", new AdminModel());
         return "admin/add";
     }
 
-    // Processar criação
     @PostMapping
     public String addAdmin(@ModelAttribute("admin") AdminModel admin) {
         adminService.saveAdmin(admin);
         return "redirect:/admins";
     }
 
-    // Mostrar formulário de edição
     @GetMapping("/editar/{id}")
     public String showEditAdminForm(@PathVariable Long id, Model model) {
         model.addAttribute("admin", adminService.findAdminById(id));
         return "admin/edit";
     }
 
-    // Processar atualização
     @PostMapping("/atualizar/{id}")
     public String updateAdmin(
             @PathVariable Long id,
@@ -74,7 +70,6 @@ public class AdminCrudController {
             return "redirect:/admins/editar/" + id;
         }
     }
-    // Excluir admin
     @GetMapping("/excluir/{id}")
     public String deleteAdmin(@PathVariable Long id) {
         adminService.deleteAdmin(id);

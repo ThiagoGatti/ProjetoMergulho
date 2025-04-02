@@ -3,6 +3,7 @@ import jakarta.validation.Valid;
 import mergulho.controle.fornecedores.domain.FornecedoresModel;
 import mergulho.controle.fornecedores.dtos.FornecedoresDto;
 import mergulho.controle.fornecedores.usecases.FornecedoresUsecase;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -20,12 +21,21 @@ public class FornecedoresController {
         this.fornecedorService = fornecedorService;
     }
 
+
     @GetMapping
     public String listarFornecedores(
             @PageableDefault(size = 10) Pageable pageable,
+            @RequestParam(name = "search", required = false) String searchTerm,
             Model model
     ) {
-        model.addAttribute("fornecedores", fornecedorService.listarFornecedores(pageable));
+        Page<FornecedoresModel> fornecedoresPage = fornecedorService.listarFornecedores(searchTerm, pageable);
+
+        model.addAttribute("fornecedoresPage", fornecedoresPage);
+        model.addAttribute("currentPage", fornecedoresPage.getNumber());
+        model.addAttribute("totalPages", fornecedoresPage.getTotalPages());
+        model.addAttribute("searchTerm", searchTerm);
+        model.addAttribute("size", pageable.getPageSize());
+
         return "fornecedores/list";
     }
 
