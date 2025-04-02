@@ -14,7 +14,7 @@
 
 <div class="conteudo">
 
-    <form th:action="@{${fornecedor.id != null} ? '/fornecedores/atualizar/' + ${fornecedor.id} : '/fornecedores'}"
+    <form th:action="@{${fornecedor.id != null} ? '/fornecedores/update/' + ${fornecedor.id} : '/fornecedores'}"
           th:object="${fornecedor}"
           method="post">
 
@@ -34,19 +34,21 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="estado">Estado:</label>
-                        <select id="estado" th:field="*{estado}" class="form-control" required>
-                            <option value="" disabled selected>Selecione um estado</option>
-                        </select>
-                        <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="error-message"></span>
-                    </div>
-
-                    <div class="form-group">
                         <label for="pais">País:</label>
                         <select id="pais" th:field="*{pais}" class="form-control" required>
                             <option value="" disabled selected>Selecione um país</option>
                         </select>
                         <span th:if="${#fields.hasErrors('pais')}" th:errors="*{pais}" class="error-message"></span>
+                    </div>
+
+                    <div id="brazil-fields" style="display: none;">
+                        <div class="form-group">
+                            <label for="estado">Estado:</label>
+                            <select id="estado" th:field="*{estado}" class="form-control">
+                                <option value="" disabled selected>Selecione um estado</option>
+                            </select>
+                            <span th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="error-message"></span>
+                        </div>
                     </div>
 
                 </fieldset>
@@ -65,13 +67,29 @@
 <script th:src="@{/js/countries.js}"></script>
 <script th:src="@{/js/states.js}"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const currentCountry = /*[[${fornecedor.pais}]]*/ null;
-        const currentState = /*[[${fornecedor.estado}]]*/ null;
+document.addEventListener("DOMContentLoaded", function() {
 
-        populateCountries('pais', currentCountry);
-        populateStates('estado', currentState);
-    });
+    const currentCountry = /*[[${fornecedor.pais}]]*/ null;
+    const currentState = /*[[${fornecedor.estado}]]*/ null;
+
+    populateCountries('pais', currentCountry);
+    populateStates('estado', currentState);
+
+    const paisSelect = document.getElementById('pais');
+    const brazilFieldsDiv = document.getElementById('brazil-fields');
+    const estadoSelect = document.getElementById('estado');
+
+    function toggleBrazilFields() {
+        const isBrazil = paisSelect.value === 'Brazil';
+        brazilFieldsDiv.style.display = isBrazil ? 'block' : 'none';
+        estadoSelect.disabled = !isBrazil;
+        estadoSelect.required = isBrazil;
+    }
+
+    paisSelect.addEventListener('change', toggleBrazilFields);
+
+    toggleBrazilFields();
+});
 </script>
 
 </body>
